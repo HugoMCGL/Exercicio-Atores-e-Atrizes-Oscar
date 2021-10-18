@@ -1,13 +1,10 @@
 package exercicioOscar;
 
-import com.sun.jdi.Value;
 import exercicioOscar.pessoas.Ator;
 import exercicioOscar.pessoas.Atriz;
 import exercicioOscar.pessoas.Pessoa;
-
 import java.io.IOException;
 import java.nio.file.Files;
-import java.security.Key;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -39,10 +36,6 @@ public class Aplicacao {
             List<Ator>atoresTry = converterEmAtor(linhasAtor);
             List<Pessoa>pessoasTryator = converterEmPessoa(linhasAtor);
 
-           // for(int i=0; i< pessoasTry.size();i++){
-             //   System.out.println("Pessoa ator "+pessoasTry.get(i).getNomePessoa());
-            //}
-
             atoresTry.forEach(System.out::println);
             System.out.println("\n");
             atores = List.copyOf(atoresTry);
@@ -71,21 +64,13 @@ public class Aplicacao {
             }
         }
         Map<String,Long> atrizExTres = atrizesExTres.stream().map(Atriz::getNomeAtriz).collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
-        atrizExTres.entrySet().stream().max(Comparator.comparingLong(Map.Entry::getValue)).ifPresent(c-> System.out.println("\nA atriz entre 20 e 30 anos que mais ganhou o premio do oscar foi: "+c.getKey()));
+        atrizExTres.entrySet().stream().max(Comparator.comparingLong(Map.Entry::getValue)).ifPresent(c-> System.out.println("\nA atriz entre 20 e 30 anos que mais ganhou o premio do oscar foi: "+c.getKey()+"\n"));
 
         //Exercicio 4
-        //Map<String,Long> pessoaExQuatro = pessoas.stream().map(Pessoa::getNomePessoa).collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
-       // pessoaExQuatro.entrySet().stream().map(Comparator.comparingLong(Map.Entry::getValue)).ifPresent(c->System.out.println(c.getKey()));
-      // for(int i = 0; i<pessoas.size();i++) {
-         //  if (pessoaExQuatro.containsValue(2L)) {
-          //     System.out.println(pessoaExQuatro.get(i));
-         //  }
-      // }
+        Map<String,Long> pessoaExQuatro = pessoas.stream().map(Pessoa::getNomePessoa).collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
+        List exQuatro = pessoaExQuatro.entrySet().stream().filter(p -> p.getValue() > 1).collect(Collectors.toList());
+        exQuatro.forEach(System.out::println);
 
-        //System.out.println(pessoaExQuatro);
-        for(int i=0; i<pessoas.size();i++){
-           // pessoas.add(atrizes.get(i).getIdade());
-        }
     }
 
     private static List<Pessoa> converterEmPessoa(List<String> linhasPessoa) {
@@ -96,7 +81,6 @@ public class Aplicacao {
             resultadoPessoa.add(novaPessoa);
         }
         return resultadoPessoa;
-
     }
 
 
